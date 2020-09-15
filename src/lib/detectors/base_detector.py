@@ -82,8 +82,8 @@ class BaseDetector(object):
   def run(self, image_or_path_or_tensor, meta=None):
     load_time, pre_time, net_time, dec_time, post_time = 0, 0, 0, 0, 0
     merge_time, tot_time = 0, 0
-    debugger = Debugger(dataset=self.opt.dataset, ipynb=(self.opt.debug==3),
-                        theme=self.opt.debugger_theme)
+    #debugger = Debugger(dataset=self.opt.dataset, ipynb=(self.opt.debug==3),
+    #                    theme=self.opt.debugger_theme)
     start_time = time.time()
     pre_processed = False
     if isinstance(image_or_path_or_tensor, np.ndarray):
@@ -112,7 +112,7 @@ class BaseDetector(object):
       torch.cuda.synchronize()
       pre_process_time = time.time()
       pre_time += pre_process_time - scale_start_time
-      
+
       output, dets, forward_time = self.process(images, return_time=True)
 
       torch.cuda.synchronize()
@@ -122,23 +122,24 @@ class BaseDetector(object):
       
       if self.opt.debug >= 2:
         self.debug(debugger, images, dets, output, scale)
-      
+
       dets = self.post_process(dets, meta, scale)
+
       torch.cuda.synchronize()
       post_process_time = time.time()
       post_time += post_process_time - decode_time
 
       detections.append(dets)
-    
+ 
     results = self.merge_outputs(detections)
     torch.cuda.synchronize()
     end_time = time.time()
     merge_time += end_time - post_process_time
     tot_time += end_time - start_time
 
-    if self.opt.debug >= 1:
-      self.show_results(debugger, image, results)
-    
+    #if self.opt.debug >= 1:
+    #  self.show_results(debugger, image, results)
+
     return {'results': results, 'tot': tot_time, 'load': load_time,
             'pre': pre_time, 'net': net_time, 'dec': dec_time,
             'post': post_time, 'merge': merge_time}

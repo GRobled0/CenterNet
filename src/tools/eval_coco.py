@@ -11,7 +11,7 @@ import pickle
 import os
 
 this_dir = os.path.dirname(__file__)
-ANN_PATH = this_dir + '../../data/coco/annotations/instances_val2017.json'
+ANN_PATH = this_dir + '../../data/custom/dataset_3.json'
 print(ANN_PATH)
 if __name__ == '__main__':
   pred_path = sys.argv[1]

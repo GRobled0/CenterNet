@@ -11,10 +11,10 @@ class opts(object):
     self.parser = argparse.ArgumentParser()
     # basic experiment setting
     self.parser.add_argument('task', default='ctdet',
-                             help='ctdet | ddd | multi_pose | exdet')
+                             help='ctdet | ddd | multi_pose | exdet | ctdetplus') #AÑADIDO CTDETPLUS
     self.parser.add_argument('--dataset', default='coco',
-                             help='coco | kitti | coco_hp | pascal')
-    self.parser.add_argument('--exp_id', default='default')
+                             help='coco | kitti | coco_hp | pascal | custom')
+    self.parser.add_argument('--exp_id', default='') #he quitado el default
     self.parser.add_argument('--test', action='store_true')
     self.parser.add_argument('--debug', type=int, default=0,
                              help='level of visualization.'
@@ -25,7 +25,7 @@ class opts(object):
     self.parser.add_argument('--demo', default='', 
                              help='path to image/ image folders/ video. '
                                   'or "webcam"')
-    self.parser.add_argument('--load_model', default='',
+    self.parser.add_argument('--load_model', default='../models/ctdet_coco_dla_2x.pth',#ctdet_coco_dla_2x.pth
                              help='path to pretrained model')
     self.parser.add_argument('--resume', action='store_true',
                              help='resume an experiment. '
@@ -328,6 +328,9 @@ class opts(object):
         opt.heads.update({'hm_hp': 17})
       if opt.reg_hp_offset:
         opt.heads.update({'hp_offset': 2})
+    elif opt.task == 'ctdetplus': #AÑADIDO AQUI EL NUEVO (copia de ctdet + depth)
+       opt.heads = {'hm': opt.num_classes,
+                   'wh': 2 if not opt.cat_spec_wh else 2 * opt.num_classes, 'dep': 1}
     else:
       assert 0, 'task not defined!'
     print('heads', opt.heads)
@@ -350,6 +353,9 @@ class opts(object):
       'ddd': {'default_resolution': [384, 1280], 'num_classes': 3, 
                 'mean': [0.485, 0.456, 0.406], 'std': [0.229, 0.224, 0.225],
                 'dataset': 'kitti'},
+      'ctdetplus': {'default_resolution': [640, 480], 'num_classes': 80, #ctdetplus usaria tambien coco como dataset
+                'mean': [0.408, 0.447, 0.470], 'std': [0.289, 0.274, 0.278],
+                'dataset': 'custom'},
     }
     class Struct:
       def __init__(self, entries):
