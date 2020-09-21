@@ -12,12 +12,12 @@ Object detection, 3D detection, and pose estimation using center point detection
 Contact: [zhouxy@cs.utexas.edu](mailto:zhouxy@cs.utexas.edu).
 
 
-##Herramientas y uso
+## Herramientas y uso
 
 Sobre el trabajo anteriormente mencionado se han añadido una serie de funcionalidades cuyo fin último es el de expandir la capacidad de la tarea ctdet para que pueda realizar un aprendizaje sin supervision que le permita estimar la distancia de objetos. La nueva tarea para la consecución de este objetivo recibe el nombre de ctdet+
 
 
-###Datasetmaker
+### Datasetmaker
 
 Entre los scripts desarrollados se encuentra datasetmaker.py, su objetivo es el tomar las imágenes dentro del directorio de "data" y crear un archivo .json con las anotaciones necesarias para la fase de aprendizaje.
 
@@ -25,9 +25,9 @@ Para su uso dentro del directorio "data" debe crearse una nueva carpeta con las 
 
 Existen además una serie opciones añadidas al archivo de opciones opts.py:
 
---dataset_name define el nombre de la carpeta dentro del directorio data que contiene la información.
+--dataset_name -> Define el nombre de la carpeta dentro del directorio data que contiene la información.
 
---dataset_test su valor predeterminado es True pero si no se quiere un archivo .json del dataset de test se debe seleccionar False. Así los datos de test estarán en una carpeta llamada "images_test" con la misma estructura que "images".
+--dataset_test -> Su valor predeterminado es True pero si no se quiere un archivo .json del dataset de test se debe seleccionar False. Así los datos de test estarán en una carpeta llamada "images_test" con la misma estructura que "images".
 
 ~~~
 python datasetmaker.py --dataset_name NOMBRE_DE_LA_CARPETA --dataset_test TRUE_O_FALSE
@@ -35,6 +35,7 @@ python datasetmaker.py --dataset_name NOMBRE_DE_LA_CARPETA --dataset_test TRUE_O
 
 Finalmente el directorio dentro de data tendrá la siguiente forma:
 
+~~~
 data
 ├── dataset1
 └── dataset2
@@ -46,6 +47,7 @@ data
     │   └── rgb
     ├── dataset.json
     └── dataset_test.json
+~~~
 
 ## Main results
 
