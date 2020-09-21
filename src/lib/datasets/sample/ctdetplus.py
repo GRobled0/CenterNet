@@ -54,8 +54,6 @@ class CTDetPlusDataset(data.Dataset):
                          (self.opt.input_w, self.opt.input_h),
                          flags=cv2.INTER_LINEAR)
     inp = (inp.astype(np.float32) / 255.)
-    # if self.split == 'train' and not self.opt.no_color_aug:
-    #   color_aug(self._data_rng, inp, self._eig_val, self._eig_vec)
     inp = (inp - self.mean) / self.std
     inp = inp.transpose(2, 0, 1)
 
@@ -66,17 +64,13 @@ class CTDetPlusDataset(data.Dataset):
     hm = np.zeros(
       (num_classes, self.opt.output_h, self.opt.output_w), dtype=np.float32)
     wh = np.zeros((self.max_objs, 2), dtype=np.float32)
-    dense_wh = np.zeros((2, self.opt.output_h, self.opt.output_w), dtype=np.float32) #añadido, comprobar si es necesario
-    #reg = np.zeros((self.max_objs, 2), dtype=np.float32)
+    dense_wh = np.zeros((2, self.opt.output_h, self.opt.output_w), dtype=np.float32)
     dep = np.zeros((self.max_objs, 1), dtype=np.float32)
-    #rotbin = np.zeros((self.max_objs, 2), dtype=np.int64)
-    #rotres = np.zeros((self.max_objs, 2), dtype=np.float32)
-    #dim = np.zeros((self.max_objs, 3), dtype=np.float32) #dim no es outpit de ctdet
+    #dim = np.zeros((self.max_objs, 3), dtype=np.float32) #dim no es output de ctdet
     ind = np.zeros((self.max_objs), dtype=np.int64)
     reg_mask = np.zeros((self.max_objs), dtype=np.uint8)
-    cat_spec_wh = np.zeros((self.max_objs, num_classes * 2), dtype=np.float32) #añadido
-    cat_spec_mask = np.zeros((self.max_objs, num_classes * 2), dtype=np.uint8) #añadido
-    #rot_mask = np.zeros((self.max_objs), dtype=np.uint8)
+    cat_spec_wh = np.zeros((self.max_objs, num_classes * 2), dtype=np.float32)
+    cat_spec_mask = np.zeros((self.max_objs, num_classes * 2), dtype=np.uint8)
 
     ann_ids = self.coco.getAnnIds(imgIds=[img_id])
     anns = self.coco.loadAnns(ids=ann_ids)
@@ -101,7 +95,7 @@ class CTDetPlusDataset(data.Dataset):
       if h > 0 and w > 0:
         radius = gaussian_radius((h, w))
         radius = max(0, int(radius))
-        radius = self.opt.hm_gauss if self.opt.mse_loss else radius #añadido
+        radius = self.opt.hm_gauss if self.opt.mse_loss else radius
         ct = np.array(
           [(bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2], dtype=np.float32)
         ct_int = ct.astype(np.int32)
@@ -122,20 +116,15 @@ class CTDetPlusDataset(data.Dataset):
         #gt_det.append([ct[0], ct[1], 1] + \
         #              self._alpha_to_8(self._convert_alpha(ann['alpha'])) + \
         #              [ann['depth']] + (np.array(ann['dim']) / 1).tolist() + [cls_id])
-        #if self.opt.reg_bbox: CREO QUE ESTO ES POR SI SE USA COCOBOX	
+        #if self.opt.reg_bbox: PARECE QUE ESTO ES POR SI SE USA COCOBOX	
         #  gt_det[-1] = gt_det[-1][:-1] + [w, h] + [gt_det[-1][-1]]
         dep[k] = ann['depth']
           #dim[k] = ann['dim']
           # print('        cat dim', cls_id, dim[k])
         ind[k] = ct_int[1] * self.opt.output_w + ct_int[0]
-          #reg[k] = ct - ct_int
-    # print('gt_det', gt_det)
-    # print('')
     ret = {'input': inp, 'hm': hm, 'dep': dep, 'wh': wh, 'ind': ind, 'reg_mask': reg_mask} #cambiado, se ha quitado dim
     if self.opt.reg_bbox:
       ret.update({'wh': wh})
-    #if self.opt.reg_offset:
-    #  ret.update({'reg': reg})
     if self.opt.debug > 0 or not ('train' in self.split):
       gt_det = np.array(gt_det, dtype=np.float32) if len(gt_det) > 0 else \
                np.zeros((1, 18), dtype=np.float32)
@@ -146,7 +135,6 @@ class CTDetPlusDataset(data.Dataset):
     return ret
 
   def _alpha_to_8(self, alpha):
-    # return [alpha, 0, 0, 0, 0, 0, 0, 0]
     ret = [0, 0, 0, 1, 0, 0, 0, 1]
     if alpha < np.pi / 6. or alpha > 5 * np.pi / 6.:
       r = alpha - (-0.5 * np.pi)

@@ -1,4 +1,7 @@
 # Objects as Points
+
+Este proyecto está basado en el siguiente trabajo:
+
 Object detection, 3D detection, and pose estimation using center point detection:
 ![](readme/fig2.png)
 > [**Objects as Points**](http://arxiv.org/abs/1904.07850),            
@@ -6,28 +9,43 @@ Object detection, 3D detection, and pose estimation using center point detection
 > *arXiv technical report ([arXiv 1904.07850](http://arxiv.org/abs/1904.07850))*         
 
 
-Contact: [zhouxy@cs.utexas.edu](mailto:zhouxy@cs.utexas.edu). Any questions or discussions are welcomed! 
+Contact: [zhouxy@cs.utexas.edu](mailto:zhouxy@cs.utexas.edu).
 
-## Updates
 
- - (June, 2020) We released a state-of-the-art Lidar-based 3D detection and tracking framework [CenterPoint](https://github.com/tianweiy/CenterPoint).
- - (April, 2020) We released a state-of-the-art (multi-category-/ pose-/ 3d-) tracking extension [CenterTrack](https://github.com/xingyizhou/CenterTrack).
+##Herramientas y uso
 
-## Abstract 
+Sobre el trabajo anteriormente mencionado se han añadido una serie de funcionalidades cuyo fin último es el de expandir la capacidad de la tarea ctdet para que pueda realizar un aprendizaje sin supervision que le permita estimar la distancia de objetos. La nueva tarea para la consecución de este objetivo recibe el nombre de ctdet+
 
-Detection identifies objects as axis-aligned boxes in an image. Most successful object detectors enumerate a nearly exhaustive list of potential object locations and classify each. This is wasteful, inefficient, and requires additional post-processing. In this paper, we take a different approach. We model an object as a single point -- the center point of its bounding box. Our detector uses keypoint estimation to find center points and regresses to all other object properties, such as size, 3D location, orientation, and even pose. Our center point based approach, CenterNet, is end-to-end differentiable, simpler, faster, and more accurate than corresponding bounding box based detectors. CenterNet achieves the best speed-accuracy trade-off on the MS COCO dataset, with 28.1% AP at 142 FPS, 37.4% AP at 52 FPS, and 45.1% AP with multi-scale testing at 1.4 FPS. We use the same approach to estimate 3D bounding box in the KITTI benchmark and human pose on the COCO keypoint dataset. Our method performs competitively with sophisticated multi-stage methods and runs in real-time.
 
-## Highlights
+###Datasetmaker
 
-- **Simple:** One-sentence method summary: use keypoint detection technic to detect the bounding box center point and regress to all other object properties like bounding box size, 3d information, and pose.
+Entre los scripts desarrollados se encuentra datasetmaker.py, su objetivo es el tomar las imágenes dentro del directorio de "data" y crear un archivo .json con las anotaciones necesarias para la fase de aprendizaje.
 
-- **Versatile:** The same framework works for object detection, 3d bounding box estimation, and multi-person pose estimation with minor modification.
+Para su uso dentro del directorio "data" debe crearse una nueva carpeta con las información del dataset y dentro de esta una carpeta llamada "images" con las imágenes del dataset divididas en dos carpetas "rgb" y "d", con el mismo número de imágenes y en el mismo orden.
 
-- **Fast:** The whole process in a single network feedforward. No NMS post processing is needed. Our DLA-34 model runs at *52* FPS with *37.4* COCO AP.
+Existen además una serie opciones añadidas al archivo de opciones opts.py:
 
-- **Strong**: Our best single model achieves *45.1*AP on COCO test-dev.
+--dataset_name define el nombre de la carpeta dentro del directorio data que contiene la información.
 
-- **Easy to use:** We provide user friendly testing API and webcam demos.
+--dataset_test su valor predeterminado es True pero si no se quiere un archivo .json del dataset de test se debe seleccionar False. Así los datos de test estarán en una carpeta llamada "images_test" con la misma estructura que "images".
+
+~~~
+python datasetmaker.py --dataset_name NOMBRE_DE_LA_CARPETA --dataset_test TRUE_O_FALSE
+~~~
+
+Finalmente el directorio dentro de data tendrá la siguiente forma:
+
+data
+├── dataset1
+└── dataset2
+    ├── images
+    │   ├── d
+    │   └── rgb
+    ├── images_test
+    │   ├── d
+    │   └── rgb
+    ├── dataset.json
+    └── dataset_test.json
 
 ## Main results
 
@@ -56,9 +74,10 @@ Detection identifies objects as axis-aligned boxes in an image. Most successful 
 
 All models and details are available in our [Model zoo](readme/MODEL_ZOO.md).
 
-## Installation
+## Instalación
 
-Please refer to [INSTALL.md](readme/INSTALL.md) for installation instructions.
+Sigue las mismas instrucciones que el proyecto en el que se basa siendo la única diferencia que se debe clonar este repositorio en vez de aquel.
+[INSTALL.md](readme/INSTALL.md)
 
 ## Use CenterNet
 

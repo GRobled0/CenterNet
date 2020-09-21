@@ -224,6 +224,12 @@ class opts(object):
     self.parser.add_argument('--eval_oracle_dep', action='store_true', 
                              help='use ground truth depth.')
 
+    #addons
+    self.parser.add_argument('--dataset_test', default=True, type = bool,
+                             help='set if dataset has a test folder')
+    self.parser.add_argument('--dataset_name', default='custom',
+                             help='name of the dataset folder inside the data directory')
+
   def parse(self, args=''):
     if args == '':
       opt = self.parser.parse_args()

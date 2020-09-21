@@ -1,6 +1,3 @@
-#python datasetmaker.py
-#hay que aplicar parametros intrinsecos y extrinsecos de la camara
-
 #ls -v | cat -n | while read n f; do mv -n "$f" "$n.ext"; done  para cambiar los nombres de los archivos de una carpeta por numeros consecutivos
 
 import _init_paths
@@ -46,6 +43,7 @@ def distabs(value):
   return imgDepthAbs
 
 
+#funcion para comprobar que no se intenta seleccionar pixeles fuera de la imagen
 def check(bbox, shape):
   checked = bbox
   thresh = 0
@@ -79,7 +77,7 @@ def analyze_data(opt, image_names, image_names_d):
     i = i + 1
 
     percentage = int(i*100/len(image_names))
-
+    #para sacar por pantalla el progreso
     if percentage >= percentage_print:
        string = "["
        for x in range(int(100/2.5)):
@@ -91,7 +89,6 @@ def analyze_data(opt, image_names, image_names_d):
        print(string + str(percentage) + '%')
        percentage_print = percentage_print + 2.5    
 
-    #print('imagen:' + str(i))
 
     image_info = {'file_name': '{}'.format(image_name),
                   'id': i,
@@ -107,9 +104,9 @@ def analyze_data(opt, image_names, image_names_d):
 
         crop_img = img[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
 
-        dist = distabs(np.percentile(crop_img, 0.5)) #la mediana caracterizará la distancia
+        dist = distabs(np.percentile(crop_img, 0.5)) #la mediana caracterizara la distancia
         if dist == 0:
-          dist = 0.001 #parece que sino da error
+          dist = 0.0001 #evita que algun error
 
         annon_info= {'image_id': i,
                      'id': int(len(document_data['annotations']) + 1),
@@ -129,7 +126,8 @@ def dataset_maker(opt):
   opt.debug = max(opt.debug, 1)
   opt.task = 'ctdet'
 
-  path_dataset = os.path.join(os.path.dirname(os.getcwd()), 'data/custom')
+  path_dataset = os.path.join(os.path.dirname(os.getcwd()), 'data')
+  path_dataset = os.path.join(path_dataset, opt.dataset_name)
   path_images = os.path.join(path_dataset, 'images')
 
 
@@ -144,16 +142,17 @@ def dataset_maker(opt):
     json.dump(document_data, file)
 
   #json del test
-  path_test = os.path.join(path_dataset, 'images_test')
+  if opt.dataset_test:
+    path_test = os.path.join(path_dataset, 'images_test')
 
-  image_names = carga_imagenes(os.path.join(path_test, 'rgb'))
-  image_names_d = carga_imagenes(os.path.join(path_test, 'd'))
+    image_names = carga_imagenes(os.path.join(path_test, 'rgb'))
+    image_names_d = carga_imagenes(os.path.join(path_test, 'd'))
 
-  print("Dataset test:")
-  document_data = analyze_data(opt, image_names, image_names_d)
+    print("Dataset test:")
+    document_data = analyze_data(opt, image_names, image_names_d)
   
-  with open(os.path.join(path_dataset, 'dataset_test.json'), 'w') as file:
-    json.dump(document_data, file)
+    with open(os.path.join(path_dataset, 'dataset_test.json'), 'w') as file:
+      json.dump(document_data, file)
   
 
         
