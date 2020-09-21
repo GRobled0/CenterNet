@@ -133,12 +133,12 @@ class CtdetPlusTrainer(BaseTrainer):
         debugger.show_all_imgs(pause=True)
 
   def save_result(self, output, batch, results):
-    reg = output['reg'] if self.opt.reg_offset else None
-    dets = ctdet_decode(
-      output['hm'], output['wh'], reg=reg,
+    #reg = output['reg'] if self.opt.reg_offset else None
+    dets = ctdetplus_decode(
+      output['dep'], output['hm'], output['wh'], reg=None,
       cat_spec_wh=self.opt.cat_spec_wh, K=self.opt.K)
     dets = dets.detach().cpu().numpy().reshape(1, -1, dets.shape[2])
-    dets_out = ctdet_post_process(
+    dets_out = ctdetplus_post_process(
       dets.copy(), batch['meta']['c'].cpu().numpy(),
       batch['meta']['s'].cpu().numpy(),
       output['hm'].shape[2], output['hm'].shape[3], output['hm'].shape[1])

@@ -20,12 +20,15 @@ class COCO(data.Dataset):
 
   def __init__(self, opt, split):
     super(COCO, self).__init__()
-    self.data_dir = os.path.join(opt.data_dir, 'custom')
-    self.img_dir = os.path.join(self.data_dir, 'images')
-
-
-    self.annot_path = os.path.join(
-        self.data_dir, 'dataset.json').format(split)
+    self.data_dir = os.path.join(opt.data_dir, opt.dataset_name)
+    if split == 'val':
+      self.img_dir = os.path.join(self.data_dir, 'images_test/rgb')
+      self.annot_path = os.path.join(
+          self.data_dir, 'dataset_test.json').format(split)
+    else:
+      self.img_dir = os.path.join(self.data_dir, 'images/rgb')
+      self.annot_path = os.path.join(
+          self.data_dir, 'dataset.json').format(split)
     self.max_objs = 128
     self.class_name = [
       '__background__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
