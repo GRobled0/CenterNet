@@ -22,18 +22,19 @@ def eval_total(ret, im, imd, i, opt, path):
   img_deb = img.copy()
   t = []
   p = []
-
+  j = 0
   for chair in ret['results'][57]:
-    if chair[4] > 0.85:
+    if chair[4] > 0.65:
+      j = j + 1
       checked = dm.check(chair[0:4], img.shape)
 
       crop_img = imgd[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
-
-      dist = dm.distabs(np.percentile(crop_img, 0.5))
+      #cv2.imwrite(os.path.join(path, str(i) + '_' + str(j) + '.png'), crop_img)
+      dist = dm.distabs(np.percentile(crop_img, 50))
 
       if opt.debug > 0:
         img_deb = cv2.rectangle(img_deb, (chair[0], chair[1]), (chair[2], chair[3]), (255,0,0), 2)
-        txt = str(chair[5]) + str(" m")
+        txt = str(dist) + str(" m") #chair[5]
         font = cv2.FONT_HERSHEY_SIMPLEX
         info_size = cv2.getTextSize(txt, font, 0.5, 2)[0]
 
@@ -47,7 +48,7 @@ def eval_total(ret, im, imd, i, opt, path):
       p.append(chair[5])
 
   if opt.debug > 0:
-    cv2.imwrite(path + str(i) + '.jpg', img_deb)
+    cv2.imwrite(os.path.join(path, str(i) + '.jpg'), img_deb)
 
   return p, t
 
@@ -61,7 +62,10 @@ def debug(opt):
   path_dataset = os.path.join(os.path.dirname(os.getcwd()), 'data')
   path_dataset = os.path.join(path_dataset, opt.dataset_name)
   path_test = os.path.join(path_dataset, 'images_test')
+  path_save = os.path.join(path_dataset, 'debug_images')
 
+  if not os.path.exists(path_save):
+    os.makedirs(path_save)
   
   image_names = dm.carga_imagenes(os.path.join(path_test, 'rgb'))
   image_names_d = dm.carga_imagenes(os.path.join(path_test, 'd'))
@@ -89,7 +93,7 @@ def debug(opt):
        print(string + str(percentage) + '%')
        percentage_print = percentage_print + 2.5  
 
-    p, t = eval_total(ret, im, imd, i, opt, path_dataset)
+    p, t = eval_total(ret, im, imd, i, opt, path_save)
 
     for pp in p:
       pred.append(pp)

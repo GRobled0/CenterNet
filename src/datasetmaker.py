@@ -32,7 +32,6 @@ def carga_imagenes(directorio):
 
 
 
-
 #la siguiente funcion cambia el valor de la media de los pixels por la distancia en metros
 def distabs(value):
   value_swap = np.array([value], dtype = np.uint16)
@@ -104,7 +103,7 @@ def analyze_data(opt, image_names, image_names_d):
 
         crop_img = img[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
 
-        dist = distabs(np.percentile(crop_img, 0.5)) #la mediana caracterizara la distancia
+        dist = distabs(np.percentile(crop_img, 50)) #la mediana caracterizara la distancia
         if dist == 0:
           dist = 0.0001 #evita que algun error
 

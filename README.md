@@ -49,6 +49,16 @@ data
     └── dataset_test.json
 ~~~
 
+### Debug
+
+El archivo debug.py tiene por fin proporcionar la información necesaria para valorar y comprobar el funcionamiento de un modelo. Cuando se ejecute este archivo creará un archivo excel donde una columna la ocuparán los valores de profundidad predichos por el modelo, tomando las imagenes de test del dataset seleccionado, y una segunda columna donde se encontrará el target.
+
+Desde la línea de comando se puede aportar un valor a --debug si este es distinto de 0 se creará una nueva carpeta en el directorio del dataset donde se guardarán las imagenes con las predicciones mostradas gráficamente, esta carpeta tendrá por nombre "debug_images".
+
+~~~
+python debug.py --task ctdetplus --load_model MODELO --debug (predeterminado 0) --dataset_name NOMBRE_DE_LA_CARPETA
+~~~
+
 ## Model zoo
 
 [Model zoo](readme/MODEL_ZOO.md).
