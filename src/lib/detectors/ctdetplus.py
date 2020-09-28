@@ -32,8 +32,8 @@ class CtdetDetectorPlus(BaseDetector):
       output = self.model(images)[-1]
       hm = output['hm'].sigmoid_()
       wh = output['wh']
-      #reg = output['reg'] if self.opt.reg_offset else None CAMBIAR ESTO SI FUESE NECESARIO
-      dep = 1. / (output['dep'].sigmoid() + 1e-6) - 1. ####asi aparece en el ddd
+      #reg = output['reg'] if self.opt.reg_offset else None
+      dep = 1. / (output['dep'].sigmoid() + 1e-6) - 1. 
 
       if self.opt.flip_test:
         hm = (hm[0:1] + flip_tensor(hm[1:2])) / 2

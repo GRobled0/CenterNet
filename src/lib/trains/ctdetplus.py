@@ -95,7 +95,7 @@ class CtdetPlusTrainer(BaseTrainer):
     loss = CtdetPlusLoss(opt)
     return loss_states, loss
 
-  def debug(self, batch, output, iter_id): #quizas sea necesario modificar esto para que muestre la distancia
+  def debug(self, batch, output, iter_id): #quizas sea necesario modificar esto
     opt = self.opt
     reg = output['reg'] if opt.reg_offset else None
     dets = ctdet_decode(

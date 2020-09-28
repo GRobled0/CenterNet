@@ -30,7 +30,16 @@ def main(opt):
   
   print('Creating model...')
   model = create_model(opt.arch, opt.heads, opt.head_conv)
-  optimizer = torch.optim.Adam(model.parameters(), opt.lr)
+  if opt.task == 'ctdetplus': #entrenar solo nueva head
+    #model.base.requires_grad = False
+    #model.dla_up.requires_grad = False
+    #model.hm.requires_grad = False
+    #model.wh.requires_grad = False
+    model.requires_grad = False
+    model.dep.requires_grad = True
+    optimizer = torch.optim.Adam(model.dep.parameters(), opt.lr)
+  else:
+    optimizer = torch.optim.Adam(model.parameters(), opt.lr)
   start_epoch = 0
   if opt.load_model != '':
     model, optimizer, start_epoch = load_model(
