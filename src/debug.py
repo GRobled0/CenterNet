@@ -34,7 +34,7 @@ def eval_total(ret, im, imd, i, opt, path):
 
       if opt.debug > 0:
         img_deb = cv2.rectangle(img_deb, (chair[0], chair[1]), (chair[2], chair[3]), (255,0,0), 2)
-        txt = str(dist) + str(" m") #chair[5]
+        txt = str(chair[5]) + str(" m")
         font = cv2.FONT_HERSHEY_SIMPLEX
         info_size = cv2.getTextSize(txt, font, 0.5, 2)[0]
 
@@ -72,6 +72,8 @@ def debug(opt):
 
   pred = []
   target = []
+  img_nm = []
+  img_idx = []
   i = 0
   percentage_print = 0
   for image_name in image_names:
@@ -99,10 +101,12 @@ def debug(opt):
       pred.append(pp)
     for tt in t:
       target.append(tt)
+      img_nm.append(im)
+      img_idx.append(i)
 
   print("Analisis completado...")
 
-  data = {'Prediction': pred, 'Target': target}
+  data = {'Prediction': pred, 'Target': target, 'Img_index': img_idx, 'Img_name': img_nm}
   df = pd.DataFrame(data)
   df.to_excel(os.path.join(path_dataset, 'debug_data.xlsx'))
 

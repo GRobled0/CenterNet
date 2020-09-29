@@ -30,25 +30,23 @@ def main(opt):
   
   print('Creating model...')
   model = create_model(opt.arch, opt.heads, opt.head_conv)
-  if opt.task == 'ctdetplus': #entrenar solo nueva head
-    #model.base.requires_grad = False
-    #model.dla_up.requires_grad = False
-    #model.hm.requires_grad = False
-    #model.wh.requires_grad = False
-    model.requires_grad = False
-    model.dep.requires_grad = True
-    optimizer = torch.optim.Adam(model.dep.parameters(), opt.lr)
-  else:
-    optimizer = torch.optim.Adam(model.parameters(), opt.lr)
+
+  optimizer = torch.optim.Adam(model.parameters(), opt.lr)
+
   start_epoch = 0
   if opt.load_model != '':
     model, optimizer, start_epoch = load_model(
       model, opt.load_model, optimizer, opt.resume, opt.lr, opt.lr_step)
 
+  if opt.task == 'ctdetplus': #entrenar solo nueva head
+    model.requires_grad = False
+    model.dep.requires_grad = True
+    optimizer = torch.optim.Adam(model.dep.parameters(), opt.lr)
+
   Trainer = train_factory[opt.task]
   trainer = Trainer(opt, model, optimizer)
   trainer.set_device(opt.gpus, opt.chunk_sizes, opt.device)
-
+  optimizer = torch.optim.Adam(model.dep.parameters(), opt.lr)
   print('Setting up data...')
   val_loader = torch.utils.data.DataLoader(
       Dataset(opt, 'val'),

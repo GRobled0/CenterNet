@@ -16,7 +16,8 @@ from detectors.detector_factory import detector_factory
 from camera_params import *
 
 image_ext = ['jpg', 'jpeg', 'png', 'webp', 'ppm', 'pgm']
-threshold = 0.85 #limite para decidir que es una silla
+threshold = 0.7 #limite para decidir que es una silla
+
 
 def carga_imagenes(directorio):
   if os.path.isdir(directorio):
@@ -70,6 +71,7 @@ def analyze_data(opt, image_names, image_names_d):
 
   i = 0
   j = 0
+  n_det = 0
   percentage_print = 0
   for image_name in image_names:  #detecta en cada imagen
     ret = detector.run(image_name)
@@ -106,7 +108,10 @@ def analyze_data(opt, image_names, image_names_d):
         dist = distabs(np.percentile(crop_img, 50)) #la mediana caracterizara la distancia
         if dist == 0:
           dist = 0.0001 #evita que algun error
+        if dist < 0:
+          break;
 
+        n_det = n_det + 1
         annon_info= {'image_id': i,
                      'id': int(len(document_data['annotations']) + 1),
                      'category_id': 57,
@@ -116,7 +121,7 @@ def analyze_data(opt, image_names, image_names_d):
 
         document_data['annotations'].append(annon_info)
 
-  return document_data
+  return document_data, n_det
 
 
 
@@ -135,10 +140,13 @@ def dataset_maker(opt):
   image_names_d = carga_imagenes(os.path.join(path_images, 'd'))
 
   print("Dataset principal: ")
-  document_data = analyze_data(opt, image_names, image_names_d)
+  document_data, n_det = analyze_data(opt, image_names, image_names_d)
   
   with open(os.path.join(path_dataset, 'dataset.json'), 'w') as file:
     json.dump(document_data, file)
+
+  print("Total detections in datatset:")
+  print(n_det)
 
   #json del test
   if opt.dataset_test:
@@ -148,11 +156,13 @@ def dataset_maker(opt):
     image_names_d = carga_imagenes(os.path.join(path_test, 'd'))
 
     print("Dataset test:")
-    document_data = analyze_data(opt, image_names, image_names_d)
+    document_data, n_det = analyze_data(opt, image_names, image_names_d)
   
     with open(os.path.join(path_dataset, 'dataset_test.json'), 'w') as file:
       json.dump(document_data, file)
-  
+
+    print("Total detections in datatset:")
+    print(n_det)  
 
         
 if __name__ == '__main__':
