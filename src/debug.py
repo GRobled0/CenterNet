@@ -47,7 +47,11 @@ def eval_total(ret, im, imd, i, opt, path):
   imgd8 = (imgd.copy()/256).astype(np.uint8)
   img_deb_d = cv2.applyColorMap(imgd8, cv2.COLORMAP_JET)
   
-  t = p = m = q = qq = []
+  t = []
+  p = []
+  m = []
+  q = []
+  qq = []
 
   j = 0
   for chair in ret['results'][57]:
@@ -99,7 +103,13 @@ def debug(opt):
   image_names = dm.carga_imagenes(os.path.join(path_test, 'rgb'))
   image_names_d = dm.carga_imagenes(os.path.join(path_test, 'd'))
 
-  pred = target = img_nm = img_idx = media = q1 = q3 = []
+  pred = []
+  target = []
+  img_nm = []
+  img_idx = []
+  media = []
+  q1 = []
+  q3 = []
 
   i = 0
   percentage_print = 0
