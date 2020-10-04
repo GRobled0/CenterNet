@@ -13,44 +13,73 @@ from camera_params import *
 import datasetmaker as dm
 
 image_ext = ['jpg', 'jpeg', 'png', 'webp', 'ppm', 'pgm']
+threshold = 0.45 #limite de score para considerar silla
 
+
+
+def dibujar_info(img, chair, info, color, color_txt):
+  img = cv2.rectangle(img, (chair[0], chair[1]), (chair[2], chair[3]), color, 2)
+  txt = info + str(" m")
+  font = cv2.FONT_HERSHEY_SIMPLEX
+  info_size = cv2.getTextSize(txt, font, 0.5, 2)[0]
+
+  img = cv2.rectangle(img.copy(),
+                         (chair[0], int(chair[1] - info_size[1] - 2)),
+                         (int(chair[0] + info_size[0]), int(chair[1] - 2)),
+                         color, -1)
+  img = cv2.putText(img.copy(),txt, (chair[0], int(chair[1] - 2)),
+                         font, 0.5, color_txt, thickness=1, lineType=cv2.LINE_AA)
+  return img
+
+
+def dibujar_texto(texto, img, color):
+  overlay = cv2.putText(img.copy(), texto,
+                       (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1.0, color, 3)
+  overlay = cv2.addWeighted(overlay, 0.5, img.copy(), 0.5, 0, img.copy())
+
+  return overlay
 
 
 def eval_total(ret, im, imd, i, opt, path):
   img = cv2.imread(im,-1)
   imgd = cv2.imread(imd,-1)
   img_deb = img.copy()
-  t = []
-  p = []
+  imgd8 = (imgd.copy()/256).astype(np.uint8)
+  img_deb_d = cv2.applyColorMap(imgd8, cv2.COLORMAP_JET)
+  
+  t = p = m = q = qq = []
+
   j = 0
   for chair in ret['results'][57]:
-    if chair[4] > 0.65:
+    if chair[4] > threshold:
       j = j + 1
       checked = dm.check(chair[0:4], img.shape)
 
       crop_img = imgd[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
-      #cv2.imwrite(os.path.join(path, str(i) + '_' + str(j) + '.png'), crop_img)
       dist = dm.distabs(np.percentile(crop_img, 50))
 
-      if opt.debug > 0:
-        img_deb = cv2.rectangle(img_deb, (chair[0], chair[1]), (chair[2], chair[3]), (255,0,0), 2)
-        txt = str(chair[5]) + str(" m")
-        font = cv2.FONT_HERSHEY_SIMPLEX
-        info_size = cv2.getTextSize(txt, font, 0.5, 2)[0]
+      q1 = dm.distabs(np.percentile(crop_img, 25))
+      q3 = dm.distabs(np.percentile(crop_img, 75))
+      mean = dm.distabs(np.mean(crop_img))
 
-        img_deb = cv2.rectangle(img_deb.copy(),
-                               (chair[0], int(chair[1] - info_size[1] - 2)),
-                               (int(chair[0] + info_size[0]), int(chair[1] - 2)),
-                               (255,0,0), -1)
-        img_deb = cv2.putText(img_deb.copy(),txt, (chair[0], int(chair[1] - 2)),
-                              font, 0.5, (255, 255, 255), thickness=1, lineType=cv2.LINE_AA)
+      if opt.debug > 0:
+        img_deb = dibujar_info(img_deb.copy(), chair, str(chair[5]), (255,0,0), (255,255,255))
+        img_deb_d = dibujar_info(img_deb_d.copy(), chair, str(dist), (255,255,255), (0,0,0))
+
       t.append(dist)
       p.append(chair[5])
+      m.append(mean)
+      q.append(q1)
+      qq.append(q3)
 
   if opt.debug > 0:
-    cv2.imwrite(os.path.join(path, str(i) + '.jpg'), img_deb)
+    img_deb = dibujar_texto("Prediction", img_deb.copy(), (0,0,0))
+    img_deb_d = dibujar_texto("Target", img_deb_d.copy(), (255,255,255))
 
-  return p, t
+    img_debugger = cv2.vconcat([img_deb, img_deb_d]) 
+    cv2.imwrite(os.path.join(path, str(i) + '.jpg'), img_debugger)
+
+  return p, t, m, q, qq
 
 
 
@@ -70,10 +99,8 @@ def debug(opt):
   image_names = dm.carga_imagenes(os.path.join(path_test, 'rgb'))
   image_names_d = dm.carga_imagenes(os.path.join(path_test, 'd'))
 
-  pred = []
-  target = []
-  img_nm = []
-  img_idx = []
+  pred = target = img_nm = img_idx = media = q1 = q3 = []
+
   i = 0
   percentage_print = 0
   for image_name in image_names:
@@ -95,7 +122,7 @@ def debug(opt):
        print(string + str(percentage) + '%')
        percentage_print = percentage_print + 2.5  
 
-    p, t = eval_total(ret, im, imd, i, opt, path_save)
+    p, t, m, q, qq = eval_total(ret, im, imd, i, opt, path_save)
 
     for pp in p:
       pred.append(pp)
@@ -103,10 +130,16 @@ def debug(opt):
       target.append(tt)
       img_nm.append(im)
       img_idx.append(i)
+    for mm in m:
+      media.append(mm)
+    for q11 in q:
+      q1.append(q11)
+    for q33 in qq:
+      q3.append(q33)
 
   print("Analisis completado...")
 
-  data = {'Prediction': pred, 'Target': target, 'Img_index': img_idx, 'Img_name': img_nm}
+  data = {'Prediction': pred, 'Target': target, 'Media': media, 'Q1': q1, 'Q3': q3, 'Img_index': img_idx, 'Img_name': img_nm}
   df = pd.DataFrame(data)
   df.to_excel(os.path.join(path_dataset, 'debug_data.xlsx'))
 
