@@ -59,7 +59,7 @@ Desde la línea de comando se puede aportar un valor a --debug si este es distin
 python debug.py --task ctdetplus --load_model MODELO --debug (predeterminado 0) --dataset_name NOMBRE_DE_LA_CARPETA
 ~~~
 
-<p align="center"> <img src='readme/debug_image.jpg' align="center" height="230px"> </p>
+<p align="center"> <img src='readme/debug_image.jpg' align="center" width="230px"> </p>
 
 
 ## Model zoo
