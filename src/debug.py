@@ -16,7 +16,6 @@ image_ext = ['jpg', 'jpeg', 'png', 'webp', 'ppm', 'pgm']
 threshold = 0.45 #limite de score para considerar silla
 
 
-
 def dibujar_info(img, chair, info, color, color_txt):
   img = cv2.rectangle(img, (chair[0], chair[1]), (chair[2], chair[3]), color, 2)
   txt = info + str(" m")
@@ -34,7 +33,7 @@ def dibujar_info(img, chair, info, color, color_txt):
 
 def dibujar_texto(texto, img, color):
   overlay = cv2.putText(img.copy(), texto,
-                       (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1.0, color, 3)
+                       (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1.0, color, 2)
   overlay = cv2.addWeighted(overlay, 0.5, img.copy(), 0.5, 0, img.copy())
 
   return overlay
@@ -42,11 +41,19 @@ def dibujar_texto(texto, img, color):
 
 def eval_total(ret, im, imd, i, opt, path):
   img = cv2.imread(im,-1)
-  imgd = cv2.imread(imd,-1)
+  img = dm.calibrate_images(img, True)
   img_deb = img.copy()
-  imgd8 = (imgd.copy()/256).astype(np.uint8)
-  img_deb_d = cv2.applyColorMap(imgd8, cv2.COLORMAP_JET)
-  
+
+  imgd = cv2.imread(imd,-1)
+
+  img_real = imgd.copy()
+  img_real = dm.distabs_img(img_real)
+  img_real = dm.change_values(img_real)
+  img_real = dm.calibrate_images(img_real.copy(), False)
+  imgd = dm.calibrate_images(imgd.copy(), False)
+  img_deb_d = cv2.applyColorMap((imgd.copy()/256).astype(np.uint8), cv2.COLORMAP_JET)
+
+
   t = []
   p = []
   m = []
@@ -59,22 +66,24 @@ def eval_total(ret, im, imd, i, opt, path):
       j = j + 1
       checked = dm.check(chair[0:4], img.shape)
 
-      crop_img = imgd[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
-      dist = dm.distabs(np.percentile(crop_img, 50))
+      crop_img = img_real[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
 
-      q1 = dm.distabs(np.percentile(crop_img, 25))
-      q3 = dm.distabs(np.percentile(crop_img, 75))
-      mean = dm.distabs(np.mean(crop_img))
+      if not np.all(crop_img <= 0):
+        dist = np.percentile(crop_img[crop_img > 0], 50)/3276.7 #se evitan valores nulos
 
-      if opt.debug > 0:
-        img_deb = dibujar_info(img_deb.copy(), chair, str(chair[5]), (255,0,0), (255,255,255))
-        img_deb_d = dibujar_info(img_deb_d.copy(), chair, str(dist), (255,255,255), (0,0,0))
+        q1 = np.percentile(crop_img[crop_img > 0], 25)/3276.7
+        q3 = np.percentile(crop_img[crop_img > 0], 75)/3276.7
+        mean = np.mean(crop_img[crop_img > 0])/3276.7
 
-      t.append(dist)
-      p.append(chair[5])
-      m.append(mean)
-      q.append(q1)
-      qq.append(q3)
+        if opt.debug > 0:
+          img_deb = dibujar_info(img_deb.copy(), chair, str(chair[5]), (255,0,0), (255,255,255))
+          img_deb_d = dibujar_info(img_deb_d.copy(), chair, str(dist), (255,255,255), (0,0,0))
+
+        t.append(dist)
+        p.append(chair[5])
+        m.append(mean)
+        q.append(q1)
+        qq.append(q3)
 
   if opt.debug > 0:
     img_deb = dibujar_texto("Prediction", img_deb.copy(), (0,0,0))
