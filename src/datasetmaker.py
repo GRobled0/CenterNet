@@ -16,7 +16,7 @@ from detectors.detector_factory import detector_factory
 from camera_params import *
 
 image_ext = ['jpg', 'jpeg', 'png', 'webp', 'ppm', 'pgm']
-threshold = 0.6 #limite para decidir que es una silla
+threshold = 0.5 #limite para decidir que es una silla
 
 
 def carga_imagenes(directorio):
@@ -162,10 +162,11 @@ def analyze_data(opt, image_names, image_names_d):
 
         checked = check(chair[0:4], img.shape) #comprobar que el bbox no se sale de la imagen
 
-        crop_img = img[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
+        crop_img = img_real[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
+        crop_img = crop_img/3276.7
 
         if not np.all(crop_img <= 0):
-          dist = np.percentile(crop_img[crop_img > 0], 50)/3276.7 #la mediana medira la distancia, no se tienen en cuenta valores nulos
+          dist = np.percentile(crop_img[crop_img > 0.05], 50) #la mediana medira la distancia, no se tienen en cuenta valores nulos
           if dist == 0:
             dist = 0.0001 #evita que algun error
           if dist > 0: #evita errores

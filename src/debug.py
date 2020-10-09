@@ -13,7 +13,7 @@ from camera_params import *
 import datasetmaker as dm
 
 image_ext = ['jpg', 'jpeg', 'png', 'webp', 'ppm', 'pgm']
-threshold = 0.45 #limite de score para considerar silla
+threshold = 0.5 #limite de score para considerar silla
 
 
 def dibujar_info(img, chair, info, color, color_txt):
@@ -41,7 +41,7 @@ def dibujar_texto(texto, img, color):
 
 def eval_total(ret, im, imd, i, opt, path):
   img = cv2.imread(im,-1)
-  img = dm.calibrate_images(img, True)
+  #img = dm.calibrate_images(img, True)
   img_deb = img.copy()
 
   imgd = cv2.imread(imd,-1)
@@ -67,13 +67,15 @@ def eval_total(ret, im, imd, i, opt, path):
       checked = dm.check(chair[0:4], img.shape)
 
       crop_img = img_real[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
+      crop_img = crop_img / 3276.7
 
       if not np.all(crop_img <= 0):
-        dist = np.percentile(crop_img[crop_img > 0], 50)/3276.7 #se evitan valores nulos
+        dist = np.percentile(crop_img[crop_img > 0.05], 50) #se evitan valores nulos
 
-        q1 = np.percentile(crop_img[crop_img > 0], 25)/3276.7
-        q3 = np.percentile(crop_img[crop_img > 0], 75)/3276.7
-        mean = np.mean(crop_img[crop_img > 0])/3276.7
+        q1 = np.percentile(crop_img[crop_img > 0.05], 25)
+        q3 = np.percentile(crop_img[crop_img > 0.05], 75)
+        mean = np.mean(crop_img[crop_img > 0.05])
+
 
         if opt.debug > 0:
           img_deb = dibujar_info(img_deb.copy(), chair, str(chair[5]), (255,0,0), (255,255,255))
@@ -89,7 +91,7 @@ def eval_total(ret, im, imd, i, opt, path):
     img_deb = dibujar_texto("Prediction", img_deb.copy(), (0,0,0))
     img_deb_d = dibujar_texto("Target", img_deb_d.copy(), (255,255,255))
 
-    img_debugger = cv2.vconcat([img_deb, img_deb_d]) 
+    img_debugger = cv2.hconcat([img_deb, img_deb_d]) 
     cv2.imwrite(os.path.join(path, str(i) + '.jpg'), img_debugger)
 
   return p, t, m, q, qq
@@ -122,6 +124,7 @@ def debug(opt):
 
   i = 0
   percentage_print = 0
+
   for image_name in image_names:
     ret = detector.run(image_name)
     im = image_name
