@@ -128,7 +128,7 @@ class CTDetPlusDataset(data.Dataset):
     if self.opt.debug > 0 or not ('train' in self.split):
       gt_det = np.array(gt_det, dtype=np.float32) if len(gt_det) > 0 else \
                np.zeros((1, 18), dtype=np.float32)
-      meta = {'c': c, 's': s, 'gt_det': gt_det, #'calib': calib, hasta que no se añada la calibracion da error
+      meta = {'c': c, 's': s, 'gt_det': gt_det, #'calib': calib, hasta que no se añada la calibracion da error, en COCO no se usa por default
               'image_path': img_path, 'img_id': img_id}
       ret['meta'] = meta
 

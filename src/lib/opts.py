@@ -13,7 +13,7 @@ class opts(object):
     self.parser.add_argument('--task', default='ctdet',
                              help='ctdet | ddd | multi_pose | exdet | ctdetplus') #AÑADIDO CTDETPLUS
     self.parser.add_argument('--dataset', default='coco',
-                             help='coco | kitti | coco_hp | pascal | custom')
+                             help='coco | kitti | coco_hp | pascal | custom') #custom + --dataset_name para personalizado
     self.parser.add_argument('--exp_id', default='') #he quitado el default
     self.parser.add_argument('--test', action='store_true')
     self.parser.add_argument('--debug', type=int, default=0,

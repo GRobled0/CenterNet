@@ -178,35 +178,35 @@ def analyze_data(opt, image_names, image_names_d):
         img_real = img.copy()
 
         #matriz con las distancias a cada punto
-        if opt.dataset_name == 'custom':
-          img_real = distabs_img(img_real, opt)
-          img_real = change_values(img_real)
-          img_real = calibrate_images(img_real.copy(), False, opt)
-          img_real = img_real/3276.7
+        img_real = distabs_img(img_real, opt)
+        img_real = change_values(img_real)
+        img_real = calibrate_images(img_real.copy(), False, opt)
+        img_real = img_real/3276.7
         
-      vector = chair[0:4].copy()
-      if opt.dataset_name == 'realsense':
-          vector[0] = vector[0] - 25
-          vector[2] = vector[2] - 25
+        vector = chair[0:4].copy()
+        #ajuste manual
+        if opt.dataset_name == 'realsense':
+            vector[0] = vector[0] - 25
+            vector[2] = vector[2] - 25
 
-      checked = check(vector, img.shape) #comprobar que el bbox no se sale de la imagen
-      crop_img = img_real[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
+        checked = check(vector, img.shape) #comprobar que el bbox no se sale de la imagen
+        crop_img = img_real[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
 
 
-      if not np.all(crop_img <= 0):
-        dist = np.percentile(crop_img[crop_img > 0.05], 50) #la mediana medira la distancia, no se tienen en cuenta valores nulos
-        if dist == 0:
-          dist = 0.0001 #evita que algun error
-        if dist > 0: #evita errores
-          n_det = n_det + 1
-          annon_info= {'image_id': i,
-                       'id': int(len(document_data['annotations']) + 1),
-                       'category_id': 57,
-                       'bbox': list(map(str,chair[0:4])),
-                       'score': str(chair[4]),
-                       'depth': str(dist)}
+        if not np.all(crop_img <= 0):
+          dist = np.percentile(crop_img[crop_img > 0.05], 50) #la mediana medira la distancia, no se tienen en cuenta valores nulos
+          if dist == 0:
+            dist = 0.0001 #evita que algun error
+          if dist > 0: #evita errores
+            n_det = n_det + 1
+            annon_info= {'image_id': i,
+                         'id': int(len(document_data['annotations']) + 1),
+                         'category_id': 57,
+                         'bbox': list(map(str,chair[0:4])),
+                         'score': str(chair[4]),
+                         'depth': str(dist)}
 
-          document_data['annotations'].append(annon_info)
+            document_data['annotations'].append(annon_info)
 
   return document_data, n_det
 
@@ -232,7 +232,7 @@ def dataset_maker(opt):
   with open(os.path.join(path_dataset, 'dataset.json'), 'w') as file:
     json.dump(document_data, file)
 
-  print("Total detections in datatset:")
+  print("Total detections in dataset:")
   print(n_det)
 
   #json del test

@@ -57,7 +57,8 @@ def eval_total(ret, im, imd, i, opt, path):
     img_deb_d = cv2.applyColorMap(img_cal.copy(), cv2.COLORMAP_JET)
 
   if opt.dataset_name == 'realsense':
-    img_deb_d = cv2.applyColorMap((img_cal.copy()*5).astype(np.uint8), cv2.COLORMAP_JET)
+    img_deb_d = cv2.applyColorMap(cv2.convertScaleAbs(imgd.copy(), alpha=0.03), cv2.COLORMAP_JET)
+    img_deb_d = dm.calibrate_images(img_deb_d, False, opt)
 
 
   t = []
