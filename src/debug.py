@@ -8,9 +8,10 @@ import numpy as np
 
 from opts import opts
 from detectors.detector_factory import detector_factory
-
-from camera_params import *
 import datasetmaker as dm
+
+from camera_params import cal_params as params_1
+from camera_params_realsense import cal_params as params_2
 
 image_ext = ['jpg', 'jpeg', 'png', 'webp', 'ppm', 'pgm']
 threshold = 0.5 #limite de score para considerar silla
@@ -45,13 +46,18 @@ def eval_total(ret, im, imd, i, opt, path):
   img_deb = img.copy()
 
   imgd = cv2.imread(imd,-1)
-
   img_real = imgd.copy()
-  img_real = dm.distabs_img(img_real)
+  img_cal = dm.calibrate_images((imgd.copy()/256).astype(np.uint8), False, opt)
+  img_real = dm.distabs_img(img_real, opt)
   img_real = dm.change_values(img_real)
-  img_real = dm.calibrate_images(img_real.copy(), False)
-  imgd = dm.calibrate_images(imgd.copy(), False)
-  img_deb_d = cv2.applyColorMap((imgd.copy()/256).astype(np.uint8), cv2.COLORMAP_JET)
+  img_real = dm.calibrate_images(img_real.copy(), False, opt)
+  img_real = img_real/3276.7
+
+  if opt.dataset_name == 'custom':
+    img_deb_d = cv2.applyColorMap(img_cal.copy(), cv2.COLORMAP_JET)
+
+  if opt.dataset_name == 'realsense':
+    img_deb_d = cv2.applyColorMap((img_cal.copy()*5).astype(np.uint8), cv2.COLORMAP_JET)
 
 
   t = []
@@ -64,28 +70,32 @@ def eval_total(ret, im, imd, i, opt, path):
   for chair in ret['results'][57]:
     if chair[4] > threshold:
       j = j + 1
-      checked = dm.check(chair[0:4], img.shape)
+
+      vector = chair[0:4].copy()
+      if opt.dataset_name == 'realsense':
+          vector[0] = vector[0] - 25
+          vector[2] = vector[2] - 25
+          
+      checked = dm.check(vector, img.shape)
 
       crop_img = img_real[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
-      crop_img = crop_img / 3276.7
 
-      if not np.all(crop_img <= 0):
-        dist = np.percentile(crop_img[crop_img > 0.05], 50) #se evitan valores nulos
+      dist = np.percentile(crop_img[crop_img > 0.05], 50) #se evitan valores nulos
 
-        q1 = np.percentile(crop_img[crop_img > 0.05], 25)
-        q3 = np.percentile(crop_img[crop_img > 0.05], 75)
-        mean = np.mean(crop_img[crop_img > 0.05])
+      q1 = np.percentile(crop_img[crop_img > 0.05], 25)
+      q3 = np.percentile(crop_img[crop_img > 0.05], 75)
+      mean = np.mean(crop_img[crop_img > 0.05])
 
 
-        if opt.debug > 0:
-          img_deb = dibujar_info(img_deb.copy(), chair, str(chair[5]), (255,0,0), (255,255,255))
-          img_deb_d = dibujar_info(img_deb_d.copy(), chair, str(dist), (255,255,255), (0,0,0))
+      if opt.debug > 0:
+        img_deb = dibujar_info(img_deb.copy(), chair, "{:.2f}".format(chair[5]), (255,0,0), (255,255,255))
+        img_deb_d = dibujar_info(img_deb_d.copy(), checked, "{:.2f}".format(dist), (255,255,255), (0,0,0))
 
-        t.append(dist)
-        p.append(chair[5])
-        m.append(mean)
-        q.append(q1)
-        qq.append(q3)
+      t.append(dist)
+      p.append(chair[5])
+      m.append(mean)
+      q.append(q1)
+      qq.append(q3)
 
   if opt.debug > 0:
     img_deb = dibujar_texto("Prediction", img_deb.copy(), (0,0,0))
