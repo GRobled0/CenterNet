@@ -43,5 +43,5 @@ class cal_params:
   t_y = 6.6238747008330102e-04
 
 # Parameters for making depth absolute.
-depthParam1 = 351.3
-depthParam2 = 1092.5
+  depthParam1 = 351.3
+  depthParam2 = 1092.5

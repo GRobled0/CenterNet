@@ -5,6 +5,7 @@ import cv2
 import csv
 import pandas as pd
 import numpy as np
+import kalman
 
 from opts import opts
 from detectors.detector_factory import detector_factory
@@ -40,7 +41,7 @@ def dibujar_texto(texto, img, color):
   return overlay
 
 
-def eval_total(ret, im, imd, i, opt, path):
+def eval_total(ret, im, imd, i, opt, path, k_filter):
   img = cv2.imread(im,-1)
   #img = dm.calibrate_images(img, True)
   img_deb = img.copy()
@@ -87,13 +88,17 @@ def eval_total(ret, im, imd, i, opt, path):
       q3 = np.percentile(crop_img[crop_img > 0.05], 75)
       mean = np.mean(crop_img[crop_img > 0.05])
 
+      if opt.kalman_filter:
+        p_dist = k_filter.predict(chair)
+      else:
+        p_dist = chair[5] 
 
       if opt.debug > 0:
-        img_deb = dibujar_info(img_deb.copy(), chair, "{:.2f}".format(chair[5]), (255,0,0), (255,255,255))
+        img_deb = dibujar_info(img_deb.copy(), chair, "{:.2f}".format(p_dist), (255,0,0), (255,255,255))
         img_deb_d = dibujar_info(img_deb_d.copy(), checked, "{:.2f}".format(dist), (255,255,255), (0,0,0))
 
       t.append(dist)
-      p.append(chair[5])
+      p.append(p_dist)
       m.append(mean)
       q.append(q1)
       qq.append(q3)
@@ -136,6 +141,8 @@ def debug(opt):
   i = 0
   percentage_print = 0
 
+  k_filter = kalman.kalman_filter()
+
   for image_name in image_names:
     ret = detector.run(image_name)
     im = image_name
@@ -155,7 +162,7 @@ def debug(opt):
        print(string + str(percentage) + '%')
        percentage_print = percentage_print + 2.5  
 
-    p, t, m, q, qq = eval_total(ret, im, imd, i, opt, path_save)
+    p, t, m, q, qq = eval_total(ret, im, imd, i, opt, path_save, k_filter)
 
     for pp in p:
       pred.append(pp)

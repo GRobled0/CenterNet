@@ -229,6 +229,8 @@ class opts(object):
                              help='set if dataset has a test folder')
     self.parser.add_argument('--dataset_name', default='custom',
                              help='name of the dataset folder inside the data directory')
+    self.parser.add_argument('--kalman_filter', action='store_true', 
+                             help='Applies kalman filter to predictions')
 
   def parse(self, args=''):
     if args == '':
