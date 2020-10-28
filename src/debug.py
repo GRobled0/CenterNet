@@ -67,8 +67,16 @@ def eval_total(ret, im, imd, i, opt, path, k_filter):
   m = []
   q = []
   qq = []
+  frame = []
 
   j = 0
+
+  if opt.kalman_filter:
+    for chair in ret['results'][57]:
+      if chair[4] > threshold:
+        frame.append(chair)
+    k_filter.frame_update(frame)
+
   for chair in ret['results'][57]:
     if chair[4] > threshold:
       j = j + 1
