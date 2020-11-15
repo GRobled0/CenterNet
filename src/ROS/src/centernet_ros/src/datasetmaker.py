@@ -1,7 +1,5 @@
 #ls -v | cat -n | while read n f; do mv -n "$f" "$n.ext"; done  para cambiar los nombres de los archivos de una carpeta por numeros consecutivos
 
-import _init_paths
-
 import os
 import cv2
 import csv

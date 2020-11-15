@@ -152,6 +152,8 @@ def debug(opt):
   k_filter = kalman.kalman_filter()
 
   for image_name in image_names:
+    #img_rgb = cv2.imread(image_name,-1)
+    #img_rgb_cal = calibrate_images(img_rgb.copy(), True, opt)
     ret = detector.run(image_name)
     im = image_name
     imd = image_names_d[i] 

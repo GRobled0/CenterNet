@@ -5,6 +5,8 @@ import os
 #import keyboard
 import time
 
+import datasetmaker as dm
+
 # Configure depth and color streams
 pipeline = rs.pipeline()
 config = rs.config()
@@ -15,13 +17,11 @@ config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 pipeline.start(config)
 
 
-#path = os.path.join(os.path.dirname(os.getcwd()), 'data')
-#path = os.path.join(path, 'realsense/images')
+path = os.path.join(os.path.dirname(os.getcwd()), 'data')
+path = os.path.join(path, 'realsense/images')
 
-path = '/media/guillermo/60F9-DB6E/external/images'
-
-a = len(os.listdir(os.path.join(path, 'rgb')))
-b = len(os.listdir(os.path.join(path, 'd')))
+a = len(dm.carga_imagenes(os.path.join(path, 'rgb')))
+b = len(dm.carga_imagenes(os.path.join(path, 'd')))
 
 i = a
 

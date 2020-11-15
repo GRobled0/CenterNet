@@ -1,0 +1,2 @@
+set(semantic_SLAM_MESSAGE_FILES "/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/semantic_slam/msg/ObjectInfo.msg;/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/semantic_slam/msg/DetectedObjects.msg;/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/semantic_slam/msg/acl_msgs/ViconState.msg;/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/semantic_slam/msg/BoundingBox.msg;/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/semantic_slam/msg/BoundingBoxes.msg")
+set(semantic_SLAM_SERVICE_FILES "")
