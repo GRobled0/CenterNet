@@ -1,0 +1,1 @@
+/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/devel/.private/ShapeColor_ObjectDetection/lib/python2.7/dist-packages/ShapeColor_ObjectDetection/msg/_ObjectInfo.py

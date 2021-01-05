@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+<name>centernet_ros</name>
+<version>1.0.0</version>
+<description>
+Adapted CenterNet to work with ROS
+</description>
+<author email="g.robledo@alumnos.upm.es">Guillermo Robledo</author>
+<maintainer email="g.robledo@alumnos.upm.es">Guillermo Robledo</maintainer>
+<license>BSD</license>
+<url>TODO</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>cv_bridge</depend>
+  <depend>image_transport</depend>
+  <depend>tf_conversions</depend>
+  <depend>tf</depend>
+  <depend>message_generation</depend>
+  <depend>message_runtime</depend>
+
+</package>
+
+

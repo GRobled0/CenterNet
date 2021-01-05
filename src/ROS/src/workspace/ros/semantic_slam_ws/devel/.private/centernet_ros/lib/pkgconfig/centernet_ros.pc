@@ -1,0 +1,8 @@
+prefix=/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/devel/.private/centernet_ros
+
+Name: centernet_ros
+Description: Description of centernet_ros
+Version: 1.0.0
+Cflags: -I/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/devel/.private/centernet_ros/include
+Libs: -L${prefix}/lib -lOpenCV
+Requires: rospy std_msgs sensor_msgs image_transport tf_conversions tf message_runtime cv_bridge image_transport

@@ -1,0 +1,1 @@
+/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/bridge_ws/devel/.private/opencv_tests/share/opencv_tests/cmake/opencv_testsConfig.cmake

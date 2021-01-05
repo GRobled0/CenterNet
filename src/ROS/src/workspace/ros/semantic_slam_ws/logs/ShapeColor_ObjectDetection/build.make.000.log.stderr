@@ -1,0 +1,19 @@
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/bucket_detector/src/sources/EllipseDetectorYaed.cpp:[m[K In member function ‘[01m[Kint CEllipseDetectorYaed::FindMaxK(const int*) const[m[K’:
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/bucket_detector/src/sources/EllipseDetectorYaed.cpp:88:52:[m[K [01;35m[Kwarning: [m[Kconverting to non-pointer type ‘[01m[Klong int[m[K’ from NULL [[01;35m[K-Wconversion-null[m[K]
+   (v[i] > max_val) ? max_val = v[i], max_idx = i : [01;35m[KNULL[m[K;
+                                                    [01;35m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/bucket_detector/src/sources/EllipseDetectorYaed.cpp:[m[K In member function ‘[01m[Kint CEllipseDetectorYaed::FindMaxN(const int*) const[m[K’:
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/bucket_detector/src/sources/EllipseDetectorYaed.cpp:100:52:[m[K [01;35m[Kwarning: [m[Kconverting to non-pointer type ‘[01m[Klong int[m[K’ from NULL [[01;35m[K-Wconversion-null[m[K]
+   (v[i] > max_val) ? max_val = v[i], max_idx = i : [01;35m[KNULL[m[K;
+                                                    [01;35m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/bucket_detector/src/sources/EllipseDetectorYaed.cpp:[m[K In member function ‘[01m[Kint CEllipseDetectorYaed::FindMaxA(const int*) const[m[K’:
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/bucket_detector/src/sources/EllipseDetectorYaed.cpp:112:52:[m[K [01;35m[Kwarning: [m[Kconverting to non-pointer type ‘[01m[Klong int[m[K’ from NULL [[01;35m[K-Wconversion-null[m[K]
+   (v[i] > max_val) ? max_val = v[i], max_idx = i : [01;35m[KNULL[m[K;
+                                                    [01;35m[K^~~~[m[K
+WARNING: Package name "ShapeColor_ObjectDetection" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.
+WARNING: Package name "ShapeColor_ObjectDetection" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.
+WARNING: Package name "semantic_SLAM" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.
+WARNING: Package name "ShapeColor_ObjectDetection" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.
+WARNING: Package name "ShapeColor_ObjectDetection" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.
+WARNING: Package name "semantic_SLAM" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.
+WARNING: Package name "ShapeColor_ObjectDetection" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.

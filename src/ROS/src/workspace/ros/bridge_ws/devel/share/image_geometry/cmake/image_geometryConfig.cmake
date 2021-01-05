@@ -1,0 +1,1 @@
+/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/bridge_ws/devel/.private/image_geometry/share/image_geometry/cmake/image_geometryConfig.cmake

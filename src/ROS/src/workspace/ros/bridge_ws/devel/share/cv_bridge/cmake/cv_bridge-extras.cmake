@@ -1,0 +1,1 @@
+/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/bridge_ws/devel/.private/cv_bridge/share/cv_bridge/cmake/cv_bridge-extras.cmake

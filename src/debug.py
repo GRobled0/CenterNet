@@ -48,18 +48,18 @@ def eval_total(ret, im, imd, i, opt, path, k_filter):
 
   imgd = cv2.imread(imd,-1)
   img_real = imgd.copy()
-  img_cal = dm.calibrate_images((imgd.copy()/256).astype(np.uint8), False, opt)
-  img_real = dm.distabs_img(img_real, opt)
-  img_real = dm.change_values(img_real)
-  img_real = dm.calibrate_images(img_real.copy(), False, opt)
-  img_real = img_real/3276.7
+  img_depth = (imgd.copy()/256).astype(np.uint8)
+  
+  #img_cal = dm.calibrate_images((imgd.copy()/256).astype(np.uint8), False, opt)
+  #img_real = dm.distabs_img(img_real, opt)
+  #img_real = dm.change_values(img_real)
+  #img_real = dm.calibrate_images(img_real.copy(), False, opt)
+  #img_real = img_real/3276.7
 
-  if opt.dataset_name == 'custom':
-    img_deb_d = cv2.applyColorMap(img_cal.copy(), cv2.COLORMAP_JET)
+  img_deb_d = cv2.applyColorMap(cv2.convertScaleAbs(imgd.copy(), alpha=0.03), cv2.COLORMAP_JET)
 
   if opt.dataset_name == 'realsense':
     img_deb_d = cv2.applyColorMap(cv2.convertScaleAbs(imgd.copy(), alpha=0.03), cv2.COLORMAP_JET)
-    img_deb_d = dm.calibrate_images(img_deb_d, False, opt)
 
 
   t = []
@@ -91,10 +91,14 @@ def eval_total(ret, im, imd, i, opt, path, k_filter):
       crop_img = img_real[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
 
       dist = np.percentile(crop_img[crop_img > 0.05], 50) #se evitan valores nulos
+      dist = dm.distabs(dist, opt)
 
       q1 = np.percentile(crop_img[crop_img > 0.05], 25)
+      q1 = dm.distabs(q1, opt)
       q3 = np.percentile(crop_img[crop_img > 0.05], 75)
+      q3 = dm.distabs(q3, opt)
       mean = np.mean(crop_img[crop_img > 0.05])
+      mean = dm.distabs(mean, opt)
 
       if opt.kalman_filter:
         p_dist = k_filter.predict(chair)
@@ -127,8 +131,12 @@ def debug(opt):
   Detector = detector_factory[opt.task]
   detector = Detector(opt)
 
-  path_dataset = os.path.join(os.path.dirname(os.getcwd()), 'data')
-  path_dataset = os.path.join(path_dataset, opt.dataset_name)
+  if opt.dataset_name == "external":
+      path_dataset = "/media/guillermo/60F9-DB6E/external"
+  else:
+      path_dataset = os.path.join(os.path.dirname(os.getcwd()), 'data')
+      path_dataset = os.path.join(path_dataset, opt.dataset_name)
+
   path_test = os.path.join(path_dataset, 'images_test')
   path_save = os.path.join(path_dataset, 'debug_images')
 

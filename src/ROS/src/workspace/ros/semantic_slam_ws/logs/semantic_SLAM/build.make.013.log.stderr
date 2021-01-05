@@ -1,0 +1,41 @@
+In file included from [01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:1[m[K:
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/include/ps_graph_slam/semantic_graph_slam.h:91:37:[m[K [01;35m[Kwarning: [m[Kuse of ‘[01m[Kauto[m[K’ in parameter declaration only available with -fconcepts
+                               const [01;35m[Kauto[m[K current_keyframe);
+                                     [01;35m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:159:54:[m[K [01;35m[Kwarning: [m[Kuse of ‘[01m[Kauto[m[K’ in parameter declaration only available with -fconcepts
+                                                const [01;35m[Kauto[m[K current_keyframe)
+                                                      [01;35m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:[m[K In member function ‘[01m[Kstd::vector<landmark> semantic_graph_slam::semantic_centernet_data_ass(ps_graph_slam::KeyFrame::Ptr)[m[K’:
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:272:63:[m[K [01;31m[Kerror: [m[K‘[01m[Ksensor_msgs::PointCloud2[m[K’ {aka ‘[01m[Kstruct sensor_msgs::PointCloud2_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kpoints[m[K’
+         geometry_msgs::Point32 object_point = point_cloud_msg.[01;31m[Kpoints[m[K[i];
+                                                               [01;31m[K^~~~~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:347[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/include/ps_graph_slam/ros_utils.hpp:4[m[K,
+                 from [01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/include/ps_graph_slam/semantic_graph_slam.h:4[m[K,
+                 from [01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:1[m[K:
+/usr/include/eigen3/Eigen/src/Core/GeneralProduct.h: In instantiation of ‘[01m[Kconst Eigen::Product<Derived, OtherDerived> Eigen::MatrixBase<Derived>::operator*(const Eigen::MatrixBase<OtherDerived>&) const [with OtherDerived = Eigen::Matrix<float, 3, 1>; Derived = Eigen::Matrix<float, 4, 4>][m[K’:
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:282:73:[m[K   required from here
+[01m[K/usr/include/eigen3/Eigen/src/Core/GeneralProduct.h:407:38:[m[K [01;31m[Kerror: [m[Kstatic assertion failed: INVALID_MATRIX_PRODUCT
+   EIGEN_STATIC_ASSERT([01;31m[KProductIsValid || SameSizes[m[K, INVALID_MATRIX_PRODUCT)
+                       [01;31m[K~~~~~~~~~~~~~~~^~~~~~~~~~~~[m[K
+[01m[K/usr/include/eigen3/Eigen/src/Core/util/StaticAssert.h:32:54:[m[K [01;36m[Knote: [m[Kin definition of macro ‘[01m[KEIGEN_STATIC_ASSERT[m[K’
+     #define EIGEN_STATIC_ASSERT(X,MSG) static_assert([01;36m[KX[m[K,#MSG);
+                                                      [01;36m[K^[m[K
+/usr/include/eigen3/Eigen/src/Core/GeneralProduct.h: In instantiation of ‘[01m[Kconst Eigen::Product<Derived, OtherDerived, 1> Eigen::MatrixBase<Derived>::lazyProduct(const Eigen::MatrixBase<OtherDerived>&) const [with OtherDerived = Eigen::Matrix<float, 3, 1>; Derived = Eigen::Matrix<float, 4, 4>][m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/ProductEvaluators.h:397:29:[m[K   required from ‘[01m[Kstatic void Eigen::internal::generic_product_impl<Lhs, Rhs, Eigen::DenseShape, Eigen::DenseShape, 3>::evalTo(Dst&, const Lhs&, const Rhs&) [with Dst = Eigen::Matrix<float, 4, 1>; Lhs = Eigen::Matrix<float, 4, 4>; Rhs = Eigen::Matrix<float, 3, 1>][m[K’
+[01m[K/usr/include/eigen3/Eigen/src/Core/ProductEvaluators.h:148:43:[m[K   required from ‘[01m[Kstatic void Eigen::internal::Assignment<DstXprType, Eigen::Product<Lhs, Rhs, Options>, Eigen::internal::assign_op<Scalar, Scalar>, Eigen::internal::Dense2Dense, typename Eigen::internal::enable_if<((Options == DefaultProduct) || (Options == AliasFreeProduct))>::type>::run(DstXprType&, const SrcXprType&, const Eigen::internal::assign_op<Scalar, Scalar>&) [with DstXprType = Eigen::Matrix<float, 4, 1>; Lhs = Eigen::Matrix<float, 4, 4>; Rhs = Eigen::Matrix<float, 3, 1>; int Options = 0; Scalar = float; Eigen::internal::Assignment<DstXprType, Eigen::Product<Lhs, Rhs, Options>, Eigen::internal::assign_op<Scalar, Scalar>, Eigen::internal::Dense2Dense, typename Eigen::internal::enable_if<((Options == DefaultProduct) || (Options == AliasFreeProduct))>::type>::SrcXprType = Eigen::Product<Eigen::Matrix<float, 4, 4>, Eigen::Matrix<float, 3, 1>, 0>][m[K’
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:836:49:[m[K   required from ‘[01m[Kvoid Eigen::internal::call_assignment_no_alias(Dst&, const Src&, const Func&) [with Dst = Eigen::Matrix<float, 4, 1>; Src = Eigen::Product<Eigen::Matrix<float, 4, 4>, Eigen::Matrix<float, 3, 1>, 0>; Func = Eigen::internal::assign_op<float, float>][m[K’
+[01m[K/usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h:728:41:[m[K   required from ‘[01m[KDerived& Eigen::PlainObjectBase<Derived>::_set_noalias(const Eigen::DenseBase<OtherDerived>&) [with OtherDerived = Eigen::Product<Eigen::Matrix<float, 4, 4>, Eigen::Matrix<float, 3, 1>, 0>; Derived = Eigen::Matrix<float, 4, 1>][m[K’
+[01m[K/usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h:537:7:[m[K   required from ‘[01m[KEigen::PlainObjectBase<Derived>::PlainObjectBase(const Eigen::DenseBase<OtherDerived>&) [with OtherDerived = Eigen::Product<Eigen::Matrix<float, 4, 4>, Eigen::Matrix<float, 3, 1>, 0>; Derived = Eigen::Matrix<float, 4, 1>][m[K’
+[01m[K/usr/include/eigen3/Eigen/src/Core/Matrix.h:379:29:[m[K   required from ‘[01m[KEigen::Matrix<_Scalar, _Rows, _Cols, _Options, _MaxRows, _MaxCols>::Matrix(const Eigen::EigenBase<OtherDerived>&) [with OtherDerived = Eigen::Product<Eigen::Matrix<float, 4, 4>, Eigen::Matrix<float, 3, 1>, 0>; _Scalar = float; int _Rows = 4; int _Cols = 1; int _Options = 0; int _MaxRows = 4; int _MaxCols = 1][m[K’
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:282:73:[m[K   required from here
+[01m[K/usr/include/eigen3/Eigen/src/Core/GeneralProduct.h:447:38:[m[K [01;31m[Kerror: [m[Kstatic assertion failed: INVALID_MATRIX_PRODUCT
+   EIGEN_STATIC_ASSERT([01;31m[KProductIsValid || SameSizes[m[K, INVALID_MATRIX_PRODUCT)
+                       [01;31m[K~~~~~~~~~~~~~~~^~~~~~~~~~~~[m[K
+[01m[K/usr/include/eigen3/Eigen/src/Core/util/StaticAssert.h:32:54:[m[K [01;36m[Knote: [m[Kin definition of macro ‘[01m[KEIGEN_STATIC_ASSERT[m[K’
+     #define EIGEN_STATIC_ASSERT(X,MSG) static_assert([01;36m[KX[m[K,#MSG);
+                                                      [01;36m[K^[m[K
+make[2]: *** [CMakeFiles/SEMANTIC_SLAM.dir/src/source/ps_graph_slam/semantic_graph_slam.cpp.o] Error 1
+make[1]: *** [CMakeFiles/SEMANTIC_SLAM.dir/all] Error 2
+make: *** [all] Error 2

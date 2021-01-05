@@ -1,0 +1,25 @@
+In file included from [01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:1[m[K:
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/include/ps_graph_slam/semantic_graph_slam.h:92:37:[m[K [01;35m[Kwarning: [m[Kuse of ‘[01m[Kauto[m[K’ in parameter declaration only available with -fconcepts
+                               const [01;35m[Kauto[m[K current_keyframe);
+                                     [01;35m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:[m[K In member function ‘[01m[Kbool semantic_graph_slam::run()[m[K’:
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:80:44:[m[K [01;31m[Kerror: [m[K‘[01m[Kcurrent_landmarks_vec[m[K’ was not declared in this scope
+                 this->empty_landmark_queue([01;31m[Kcurrent_landmarks_vec[m[K,
+                                            [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:80:44:[m[K [01;36m[Knote: [m[Ksuggested alternative: ‘[01m[Klandmarks_vec_[m[K’
+                 this->empty_landmark_queue([01;36m[Kcurrent_landmarks_vec[m[K,
+                                            [01;36m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+                                            [32m[Klandmarks_vec_[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:[m[K At global scope:
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:163:54:[m[K [01;35m[Kwarning: [m[Kuse of ‘[01m[Kauto[m[K’ in parameter declaration only available with -fconcepts
+                                                const [01;35m[Kauto[m[K current_keyframe)
+                                                      [01;35m[K^~~~[m[K
+In file included from [01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/include/semantic_graph_slam_ros.h:72[m[K,
+                 from [01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:1[m[K:
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/include/ps_graph_slam/semantic_graph_slam.h:92:37:[m[K [01;35m[Kwarning: [m[Kuse of ‘[01m[Kauto[m[K’ in parameter declaration only available with -fconcepts
+                               const [01;35m[Kauto[m[K current_keyframe);
+                                     [01;35m[K^~~~[m[K
+make[2]: *** [CMakeFiles/SEMANTIC_SLAM.dir/src/source/ps_graph_slam/semantic_graph_slam.cpp.o] Error 1
+make[2]: *** Se espera a que terminen otras tareas....
+make[1]: *** [CMakeFiles/SEMANTIC_SLAM.dir/all] Error 2
+make: *** [all] Error 2

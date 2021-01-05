@@ -1,0 +1,8 @@
+prefix=/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/bridge_ws/install
+
+Name: opencv_tests
+Description: Description of opencv_tests
+Version: 1.15.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -20,7 +20,10 @@ class COCO(data.Dataset):
 
   def __init__(self, opt, split):
     super(COCO, self).__init__()
-    self.data_dir = os.path.join(opt.data_dir, opt.dataset_name)
+    if opt.dataset_name == "external":
+      self.data_dir = "/media/guillermo/60F9-DB6E/external"
+    else:
+      self.data_dir = os.path.join(opt.data_dir, opt.dataset_name)
     if split == 'val':
       self.img_dir = os.path.join(self.data_dir, 'images_test/rgb')
       self.annot_path = os.path.join(

@@ -1,0 +1,60 @@
+In file included from [01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/include/semantic_graph_slam_ros.h:72[m[K,
+                 from [01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:1[m[K:
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/include/ps_graph_slam/semantic_graph_slam.h:83:37:[m[K [01;35m[Kwarning: [m[Kuse of ‘[01m[Kauto[m[K’ in parameter declaration only available with -fconcepts
+                               const [01;35m[Kauto[m[K current_keyframe);
+                                     [01;35m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:[m[K In member function ‘[01m[Kvoid semantic_graph_slam_ros::centernetSubCallback(const BoundingBoxes&)[m[K’:
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:145:28:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+     object_info.resize(msg.[01;31m[Kdata[m[K.size());
+                            [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:153:27:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+     for(int i =0; i < msg.[01;31m[Kdata[m[K.size(); ++i)
+                           [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:155:37:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         object_info[i].type   = msg.[01;31m[Kdata[m[K[i].Class;
+                                     [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:156:37:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         object_info[i].tl_x   = msg.[01;31m[Kdata[m[K[i].xmin;
+                                     [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:157:37:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         object_info[i].tl_y   = msg.[01;31m[Kdata[m[K[i].ymin;
+                                     [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:158:41:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         object_info[i].height = abs(msg.[01;31m[Kdata[m[K[i].ymax - msg.data[i].ymin);
+                                         [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:158:60:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         object_info[i].height = abs(msg.data[i].ymax - msg.[01;31m[Kdata[m[K[i].ymin);
+                                                            [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:159:41:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         object_info[i].width  = abs(msg.[01;31m[Kdata[m[K[i].xmax - msg.data[i].xmin);
+                                         [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:159:60:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         object_info[i].width  = abs(msg.data[i].xmax - msg.[01;31m[Kdata[m[K[i].xmin);
+                                                            [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:160:37:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         object_info[i].prob   = msg.[01;31m[Kdata[m[K[i].probability;
+                                     [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:162:23:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         x_rel = ((msg.[01;31m[Kdata[m[K[i].xmax + msg.data[i].xmin)/2) - (HSIZE / 2);
+                       [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:162:42:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         x_rel = ((msg.data[i].xmax + msg.[01;31m[Kdata[m[K[i].xmin)/2) - (HSIZE / 2);
+                                          [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:163:23:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         y_rel = ((msg.[01;31m[Kdata[m[K[i].ymax + msg.data[i].ymin)/2) - (VSIZE / 2);
+                       [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:163:42:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         y_rel = ((msg.data[i].ymax + msg.[01;31m[Kdata[m[K[i].ymin)/2) - (VSIZE / 2);
+                                          [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:180:36:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         point.z = cos(theta) * msg.[01;31m[Kdata[m[K[i].depth;
+                                    [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:181:47:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         point.y = sin(theta) * sin(phi) * msg.[01;31m[Kdata[m[K[i].depth;
+                                               [01;31m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/semantic_graph_slam_ros.cpp:182:47:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst BoundingBoxes[m[K’ {aka ‘[01m[Kconst struct semantic_SLAM::BoundingBoxes_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+         point.x = sin(theta) * cos(phi) * msg.[01;31m[Kdata[m[K[i].depth;
+                                               [01;31m[K^~~~[m[K
+make[2]: *** [CMakeFiles/SEMANTIC_SLAM.dir/src/source/semantic_graph_slam_ros.cpp.o] Error 1
+make[1]: *** [CMakeFiles/SEMANTIC_SLAM.dir/all] Error 2
+make: *** [all] Error 2

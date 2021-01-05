@@ -19,6 +19,7 @@ from camera_params_realsense import cal_params as params_2
 
 image_ext = ['jpg', 'jpeg', 'png', 'webp', 'ppm', 'pgm']
 threshold = 0.5 #limite para decidir que es una silla
+depth_step = 0.001
 
 
 def sorted_alphanumeric(data):
@@ -61,6 +62,8 @@ def distabs_img(img, opt):
   if opt.dataset_name == 'realsense':
     imgDepthAbs = np.array(img, dtype = np.uint16) * params_2.depth_scale / 1.5 #ajuste manual VALIDAR
 
+  imgDepthAbs = np.array(img, dtype = np.uint16) * depth_step
+
   return imgDepthAbs
 
 
@@ -75,6 +78,8 @@ def distabs(value, opt):
 
   if opt.dataset_name == 'realsense':
     imgDepthAbs = value * params_2.depth_scale / 1.5 #ajuste manual VALIDAR
+
+  imgDepthAbs = value * depth_step
  
   return imgDepthAbs
 
@@ -180,16 +185,16 @@ def analyze_data(opt, image_names, image_names_d):
         img_real = img.copy()
 
         #matriz con las distancias a cada punto
-        img_real = distabs_img(img_real, opt)
-        img_real = change_values(img_real)
-        img_real = calibrate_images(img_real.copy(), False, opt)
-        img_real = img_real/3276.7
+        #img_real = distabs_img(img_real, opt)
+        #img_real = change_values(img_real)
+        #img_real = calibrate_images(img_real.copy(), False, opt)
+        #img_real = img_real/3276.7
         
         vector = chair[0:4].copy()
         #ajuste manual
-        if opt.dataset_name == 'realsense':
-            vector[0] = vector[0] - 25
-            vector[2] = vector[2] - 25
+        #if opt.dataset_name == 'realsense':
+        #    vector[0] = vector[0] - 25
+        #    vector[2] = vector[2] - 25
 
         checked = check(vector, img.shape) #comprobar que el bbox no se sale de la imagen
         crop_img = img_real[int(checked[1]):int(checked[3]), int(checked[0]):int(checked[2])]
@@ -197,6 +202,7 @@ def analyze_data(opt, image_names, image_names_d):
 
         if not np.all(crop_img <= 0):
           dist = np.percentile(crop_img[crop_img > 0.05], 50) #la mediana medira la distancia, no se tienen en cuenta valores nulos
+          dist = distabs(dist, opt)
           if dist == 0:
             dist = 0.0001 #evita que algun error
           if dist > 0: #evita errores
@@ -219,14 +225,23 @@ def dataset_maker(opt):
   opt.debug = max(opt.debug, 1)
   opt.task = 'ctdet'
 
-  path_dataset = os.path.join(os.path.dirname(os.getcwd()), 'data')
-  path_dataset = os.path.join(path_dataset, opt.dataset_name)
+  if opt.dataset_name == "external":
+      path_dataset = "/media/guillermo/60F9-DB6E/external"
+  else:
+      path_dataset = os.path.join(os.path.dirname(os.getcwd()), 'data')
+      path_dataset = os.path.join(path_dataset, opt.dataset_name)
   path_images = os.path.join(path_dataset, 'images')
+
+  print("Path:")
+  print(path_dataset)
 
 
   #json del dataset para training
   image_names = carga_imagenes(os.path.join(path_images, 'rgb'))
   image_names_d = carga_imagenes(os.path.join(path_images, 'd'))
+
+  print("Number images: ")
+  print(len(image_names))
 
   print("Dataset principal: ")
   document_data, n_det = analyze_data(opt, image_names, image_names_d)
@@ -243,6 +258,9 @@ def dataset_maker(opt):
 
     image_names = carga_imagenes(os.path.join(path_test, 'rgb'))
     image_names_d = carga_imagenes(os.path.join(path_test, 'd'))
+
+    print("Number images: ")
+    print(len(image_names))
 
     print("Dataset test:")
     document_data, n_det = analyze_data(opt, image_names, image_names_d)

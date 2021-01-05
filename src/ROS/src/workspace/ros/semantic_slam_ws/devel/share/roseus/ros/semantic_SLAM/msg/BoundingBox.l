@@ -1,0 +1,1 @@
+/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/devel/.private/semantic_SLAM/share/roseus/ros/semantic_SLAM/msg/BoundingBox.l

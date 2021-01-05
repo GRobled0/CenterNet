@@ -1,0 +1,96 @@
+** WARNING ** io features related to pcap will be disabled
+** WARNING ** io features related to png will be disabled
+** WARNING ** io features related to libusb-1.0 will be disabled
+[33m[1mCMake Warning[0m at /home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/CMakeLists.txt:121 (add_library):
+  Cannot generate a safe linker search path for target SEMANTIC_SLAM because
+  files in some directories may conflict with libraries in implicit
+  directories:
+
+    link library [libpcl_kdtree.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_search.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_features.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_sample_consensus.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_filters.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_ml.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_segmentation.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_surface.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_common.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_octree.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_io.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+
+  Some of these libraries may not be found correctly.
+
+
+[33m[1mCMake Warning[0m at /home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/CMakeLists.txt:136 (add_executable):
+  Cannot generate a safe linker search path for target
+  depth_synchronization_node because files in some directories may conflict
+  with libraries in implicit directories:
+
+    link library [libpcl_kdtree.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_search.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_features.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_sample_consensus.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_filters.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_ml.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_segmentation.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_surface.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_common.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_octree.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_io.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+
+  Some of these libraries may not be found correctly.
+
+
+[33m[1mCMake Warning[0m at /home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/CMakeLists.txt:130 (add_executable):
+  Cannot generate a safe linker search path for target
+  semantic_graph_SLAM_node because files in some directories may conflict
+  with libraries in implicit directories:
+
+    link library [libpcl_kdtree.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_search.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_features.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_sample_consensus.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_filters.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_ml.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_segmentation.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_surface.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_common.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_octree.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    link library [libpcl_io.so] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+
+  Some of these libraries may not be found correctly.
+
+

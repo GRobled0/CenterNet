@@ -1,0 +1,7 @@
+In file included from [01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:1[m[K:
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/include/ps_graph_slam/semantic_graph_slam.h:91:37:[m[K [01;35m[Kwarning: [m[Kuse of ‘[01m[Kauto[m[K’ in parameter declaration only available with -fconcepts
+                               const [01;35m[Kauto[m[K current_keyframe);
+                                     [01;35m[K^~~~[m[K
+[01m[K/home/guillermo/anaconda3/envs/CenterNet/CenterNet/src/ROS/src/workspace/ros/semantic_slam_ws/src/semantic_slam/src/source/ps_graph_slam/semantic_graph_slam.cpp:160:54:[m[K [01;35m[Kwarning: [m[Kuse of ‘[01m[Kauto[m[K’ in parameter declaration only available with -fconcepts
+                                                const [01;35m[Kauto[m[K current_keyframe)
+                                                      [01;35m[K^~~~[m[K
